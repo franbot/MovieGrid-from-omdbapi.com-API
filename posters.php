@@ -32,7 +32,7 @@
 <?php
 
 // setup some prefereances
-$apikey = file_get_contents("api.txt");  // your API key from http://omdbapi.com - you have to request one
+$apikey = file_get_contents("api.txt");  // you must request an API key from http://omdbapi.com
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
