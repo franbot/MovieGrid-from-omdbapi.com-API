@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/col.css" media="all">
+	<link rel="stylesheet" href="../css/col.css" media="all">
 	<style type="text/css">
 	body { padding:0em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
 	.header { padding:1em 0; }
@@ -35,7 +35,7 @@
 $apikey ="";  // your API key from http://omdbapi.com - you have to request one
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
-$path = "posters/";  // path to folder of posters
+$path = "../posters/";  // path to folder of posters
 $sort = "asc";  // sort order of movie list - random (rand), ascending (asc), descending (desc)
 
 // setup some basic variables - don't change!
