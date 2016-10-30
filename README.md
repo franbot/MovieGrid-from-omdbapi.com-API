@@ -6,3 +6,5 @@ This project will hopefully turn into a Wordpress plug-in at some point, but for
 *** I have NOT included my API key here publicly, you can request your own by making a small donation at http://www.omdbapi.com. Once you have it - enter it in line 35 of "posters.php". The code will not work until you have an API key***
 
 For styling I am using the responsive grid CSS code found at http://www.responsivegridsystem.com.  I have merged each of the stylesheets into one big stylesheet.
+
+BTW - I am a total noob with PHP.  More than anything this is a project to cut my teeth on a real world project.  I'm what you might call a Google programmer - I google search snippets of code and put it in my program. 
