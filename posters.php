@@ -31,7 +31,7 @@
 
 <?php
 
-// setup some prefereances
+// setup some preferences
 $apikey = file_get_contents("api.txt");  // you must request an API key from http://omdbapi.com
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
@@ -76,10 +76,11 @@ if (file_exists($path.$posterFile)) {
 	// checking to see if the poster artwork and accompanying text file has been previously downloaded.
   	$url = $path.$dataFile;
 	$resultText = file_get_contents($url);
-	$resultArray = explode(";",$resultText);
-	$Title = $resultArray[0];
-	$Year = $resultArray[1];
-	$Director = $resultArray[2];
+	$resultText = file_get_contents($url);
+	$resultArray = (json_decode($resultText));
+	$Title = $resultArray->{'Title'};
+	$Director = $resultArray->{'Director'};
+	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
     
 }else {
@@ -93,13 +94,13 @@ if (file_exists($path.$posterFile)) {
 	$Year = $resultArray->{'Year'};
 		
 	if (empty($Poster)){
-		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later on line 108
+		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later on line 113
 		$movieTitlePretty = "<h3><font color='red'>NO POSTER ARTWORK FOUND</font></br>".PHP_EOL.$movieTitlePretty."</h3>".PHP_EOL;		
 		
 		}else {
 			// if the API call finds poster artwork, download it to a file along with a text file to store some basic info
 			file_put_contents($path.$movieTitleFile.".jpg", file_get_contents($Poster));
-			file_put_contents($path.$movieTitleFile.".txt", $Title.";".$Year.";".$Director);
+			file_put_contents($path.$movieTitleFile.".txt", $resultText);
 			$movieTitlePretty = "<font color='green'>FILE DOWNLOADED</font></br>".PHP_EOL.$movieTitlePretty;		
 			$Poster = $path.$posterFile;
 			}			
