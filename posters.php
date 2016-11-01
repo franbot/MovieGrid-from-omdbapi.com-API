@@ -76,7 +76,6 @@ if (file_exists($path.$posterFile)) {
 	// checking to see if the poster artwork and accompanying text file has been previously downloaded.
   	$url = $path.$dataFile;
 	$resultText = file_get_contents($url);
-	$resultText = file_get_contents($url);
 	$resultArray = (json_decode($resultText));
 	$Title = $resultArray->{'Title'};
 	$Director = $resultArray->{'Director'};
@@ -111,7 +110,7 @@ if ($columncount<$columns){
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	echo "<p>".$movieCount++."</p>".PHP_EOL;
 	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-	echo "<p><strong>".$movieTitlePretty."</strong> - ".$Year."</p>".PHP_EOL;
+	echo "<p><strong>".$movieTitlePretty."</strong></br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
 	
@@ -120,7 +119,7 @@ if ($columncount<$columns){
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		echo "<p>".$movieCount++."</p>".PHP_EOL;
 		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-		echo "<p><strong>".$movieTitlePretty."</strong> - ".$Year."</p>".PHP_EOL;
+		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
 		echo "<div class='section group'>".PHP_EOL;
