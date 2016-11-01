@@ -127,8 +127,6 @@ if ($columncount<$columns){
 		}
 }
 
-//github test
-
 ?>
 </div>
 </div>
