@@ -1,11 +1,10 @@
-Terminator 2
-Aliens
 2001: A Space Odyssey
 24 Hour Party People
 A Hard Day's Night
 Akira
 Aladdin;1992
 Alien
+Aliens
 American Psycho
 Apollo 13
 Back to the Future
@@ -71,6 +70,7 @@ Star Wars Episode IV A New Hope
 Star Wars Episode V The Empire Strikes Back
 Star Wars Episode VI Return of the Jedi
 Taxi Driver
+Terminator 2
 The Abyss
 The Adventures of Baron Munchausen
 The Big Lebowski

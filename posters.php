@@ -36,7 +36,7 @@ $apikey = file_get_contents("api.txt");  // you must request an API key from htt
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
-$sort = "file";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
+$sort = "asc";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
 
 // setup some basic variables - don't change!
 $columncount=1;
@@ -44,6 +44,8 @@ $movieCount=1;
 $fileRaw = file_get_contents("movies.txt");  // read in list of movies from external file
 $file = str_replace(" ", "+", $fileRaw);
 $movielist = explode(PHP_EOL, $file);
+$movieListDetails = array();
+
 
 // sort movielist array
 switch ($sort) {   
@@ -81,6 +83,9 @@ if (file_exists($path.$posterFile)) {
 	$Director = $resultArray->{'Director'};
 	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
+	
+	$movieArray = array($Title,$Year,$Director);
+	array_push($movieListDetails, $movieArray);
     
 }else {
 	// if no poster artwork is found in the directory, make an API call to try to find and download it.
@@ -91,6 +96,9 @@ if (file_exists($path.$posterFile)) {
 	$Director = $resultArray->{'Director'};
 	$Poster = $resultArray->{'Poster'};
 	$Year = $resultArray->{'Year'};
+	
+	$movieArray = array($Title,$Year,$Director);
+	array_push($movieListDetails, $movieArray);
 		
 	if (empty($Poster)){
 		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later on line 113
@@ -126,6 +134,8 @@ if ($columncount<$columns){
 		$columncount=1;
 		}
 }
+
+var_dump ($movieListDetails);
 
 ?>
 </div>
