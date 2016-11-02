@@ -36,7 +36,7 @@ $apikey = file_get_contents("api.txt");  // you must request an API key from htt
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
-$sort = "asc";  // sort order of movie list - random (rand), ascending (asc), descending (desc)
+$sort = "file";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
 
 // setup some basic variables - don't change!
 $columncount=1;
