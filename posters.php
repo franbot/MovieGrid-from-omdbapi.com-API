@@ -84,7 +84,7 @@ if (file_exists($path.$posterFile)) {
 	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
 	
-	$movieArray = array($Title,$Year,$Director);
+	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director);
 	array_push($movieListDetails, $movieArray);
     
 }else {
