@@ -40,11 +40,11 @@ $tempSort = $_GET["sort"];
 $tempSorter = $_GET["sorter"];
 
 if (isset($tempSort)){
-$sort = $tempSort;
+$sort = $tempSort;     // sort order passed in URL - random (rand), ascending (asc), descending (desc)
 }
 
 if (isset($tempSorter)){
-$sorter = new FieldSorter($tempSorter); // Value to sort by - Title, Year, Director, Rating
+$sorter = new FieldSorter($tempSorter); // sort value passed in URL - Title, Year, Director, Rating
 }
 
 
@@ -171,7 +171,6 @@ if ($columncount<$columns){
 		echo "<div class='section group'>".PHP_EOL;
 		$columncount=1;
 		}
-
 }   
 
 // display preformatted array of movie details for debugging   
