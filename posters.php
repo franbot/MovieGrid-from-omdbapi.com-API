@@ -137,26 +137,21 @@ if ($columncount<$columns){
 		}
 }
 
-uasort($movieListDetails, 'sort_by_year');
+$sorter = new FieldSorter('Title'); 
+   
+usort($movieListDetails, array($sorter, "cmp"));
 
-function sort_by_year ($a, $b)
-{
-    return $a['Year'] - $b['Year'];
-}
+class FieldSorter {
+    public $field;
 
-function sort_by_title ($a, $b)
-{
-    return $a['Title'] - $b['Title'];
-}
+    function __construct($field) {
+        $this->field = $field;
+    }
 
-function sort_by_director ($a, $b)
-{
-    return $a['Director'] - $b['Director'];
-}
-
-function sort_by_rating ($a, $b)
-{
-    return $a['Rating'] - $b['Rating'];
+    function cmp($a, $b) {
+        if ($a[$this->field] == $b[$this->field]) return 0;
+        return ($a[$this->field] > $b[$this->field]) ? 1 : -1;
+    }
 }
 
 echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
