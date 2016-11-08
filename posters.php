@@ -34,8 +34,19 @@ $apikey = file_get_contents("api.txt");  // you must request an API key from htt
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
-$sort = "desc";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
-$sorter = new FieldSorter('Rating'); // Value to sort by - Title, Year, Director, Rating
+$sort = "asc";  // default sort order - random (rand), ascending (asc), descending (desc)
+$sorter = new FieldSorter('Title'); // default value to sort by - Title, Year, Director, Rating
+$tempSort = $_GET["sort"];
+$tempSorter = $_GET["sorter"];
+
+if (isset($tempSort)){
+$sort = $tempSort;
+}
+
+if (isset($tempSorter)){
+$sorter = new FieldSorter($tempSorter); // Value to sort by - Title, Year, Director, Rating
+}
+
 
 // setup some basic variables - don't change!
 $columncount=1;
@@ -98,6 +109,20 @@ if (file_exists($path.$posterFile)) {
    
 usort($movieListDetails, array($sorter, "cmp"));  // sort multidimensional array by sending to function below
 
+class FieldSorter {
+// sort multidimensional array by the specified key (Title, Year, Director, Rating) - variable $sorter set above.
+    public $field;
+
+    function __construct($field) {
+        $this->field = $field;
+    }
+
+    function cmp($a, $b) {
+        if ($a[$this->field] == $b[$this->field]) return 0;
+        return ($a[$this->field] > $b[$this->field]) ? 1 : -1;
+    }
+}
+
 // sort movielist array
 switch ($sort) {   
     case "rand":
@@ -113,21 +138,6 @@ switch ($sort) {
     default:
         ;
 }
-
-class FieldSorter {
-// sort multidimensional array by the specified key (Title, Year, Director, Rating) - variable $sorter set above.
-    public $field;
-
-    function __construct($field) {
-        $this->field = $field;
-    }
-
-    function cmp($a, $b) {
-        if ($a[$this->field] == $b[$this->field]) return 0;
-        return ($a[$this->field] > $b[$this->field]) ? 1 : -1;
-    }
-}
-
 
 // here is where the actual page is rendered
 echo "<div class='section group'>";
