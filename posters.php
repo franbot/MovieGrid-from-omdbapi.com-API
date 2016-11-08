@@ -16,7 +16,7 @@
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="../css/col.css" media="all">
 	<style type="text/css">
-	body { padding:0em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
+	body { padding:2em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
 	.header { padding:1em 0; }
 	.col { background: #fff; padding:0em 0; text-align:center;}
 	h3 {font-size: 100%; padding-bottom: 10px;}
