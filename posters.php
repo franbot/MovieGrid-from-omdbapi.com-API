@@ -35,7 +35,7 @@ $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
 $sort = "desc";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
-$sorter = new FieldSorter('Title'); // Value to sort by - Title, Year, Director, Rating
+$sorter = new FieldSorter('Rating'); // Value to sort by - Title, Year, Director, Rating
 
 // setup some basic variables - don't change!
 $columncount=1;
@@ -44,22 +44,6 @@ $fileRaw = file_get_contents("movies.txt");  // read in list of movies from exte
 $file = str_replace(" ", "+", $fileRaw);
 $movielist = explode(PHP_EOL, $file);
 $movieListDetails = array();
-
-
-// sort movielist array
-switch ($sort) {   
-    case "rand":
-		shuffle($movielist);
-        break;
-    case "asc":
-        sort($movielist);
-        break;
-    case "desc":
-        rsort($movielist);
-        break;
-    default:
-        ;
-}
 
 foreach ($movielist as $movie) {
 // loop through list of movies from file and get some basic info
@@ -112,10 +96,26 @@ if (file_exists($path.$posterFile)) {
 	array_push($movieListDetails, $movieArray);
 }
    
+usort($movieListDetails, array($sorter, "cmp"));  // sort multidimensional array by sending to function below
 
-usort($movieListDetails, array($sorter, "cmp"));
+// sort movielist array
+switch ($sort) {   
+    case "rand":
+		shuffle($movieListDetails);
+        break;
+    case "asc":
+        // no need to sort ascending because the array is already in that order
+        break;
+    case "desc":
+    	// reverse the order of elements in the array to arrange by descending order
+        $movieListDetails = array_reverse($movieListDetails,true);
+        break;
+    default:
+        ;
+}
 
 class FieldSorter {
+// sort multidimensional array by the specified key (Title, Year, Director, Rating) - variable $sorter set above.
     public $field;
 
     function __construct($field) {
@@ -128,8 +128,11 @@ class FieldSorter {
     }
 }
 
+
+// here is where the actual page is rendered
 echo "<div class='section group'>";
 
+// loop through each sub array, get all the details, then reder each cell in the table
 foreach ($movieListDetails as $movie){
 	$Title = $movie['Title'];
 	$movieTitlePretty = $movie['movieTitlePretty'];
@@ -161,7 +164,7 @@ if ($columncount<$columns){
 
 }   
 
-// 			display preformatted array of movie details for debugging   
+// display preformatted array of movie details for debugging   
 // echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
 // print_r($movieListDetails);
 // echo "</div>".PHP_EOL."<pre>".PHP_EOL;
