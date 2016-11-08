@@ -27,8 +27,6 @@
 
 <body>
 
-<div class='section group'>
-
 <?php
 
 // setup some preferences
@@ -36,7 +34,8 @@ $apikey = file_get_contents("api.txt");  // you must request an API key from htt
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
-$sort = "asc";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
+$sort = "desc";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
+$sorter = new FieldSorter('Title'); // Value to sort by - Title, Year, Director, Rating
 
 // setup some basic variables - don't change!
 $columncount=1;
@@ -84,9 +83,6 @@ if (file_exists($path.$posterFile)) {
 	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
 	$Rating = $resultArray->{'imdbRating'};
-	
-	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
-	array_push($movieListDetails, $movieArray);
     
 }else {
 	// if no poster artwork is found in the directory, make an API call to try to find and download it.
@@ -98,13 +94,9 @@ if (file_exists($path.$posterFile)) {
 	$Year = $resultArray->{'Year'};
 	$Poster = $resultArray->{'Poster'};
 	$Rating = $resultArray->{'imdbRating'};
-	
-	
-	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
-	array_push($movieListDetails, $movieArray);
 		
 	if (empty($Poster)){
-		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later on line 113
+		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later in the page rendering loop
 		$movieTitlePretty = "<h3><font color='red'>NO POSTER ARTWORK FOUND</font></br>".PHP_EOL.$movieTitlePretty."</h3>".PHP_EOL;		
 		
 		}else {
@@ -116,29 +108,11 @@ if (file_exists($path.$posterFile)) {
 			}			
 	}  
 	
-if ($columncount<$columns){
-	// if the current column is less than the number of columns specified, open a new column DIV and display the info
-	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
-	echo "<p>".$movieCount++."</p>".PHP_EOL;
-	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
-	echo "</div>".PHP_EOL;
-	$columncount++;
-	
-	}else{
-		// if the current column is equal to the maximum number of columns specified - display info, then close the group and start a new group
-		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
-		echo "<p>".$movieCount++."</p>".PHP_EOL;
-		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
-		echo "</div>".PHP_EOL;	
-		echo "</div>".PHP_EOL;
-		echo "<div class='section group'>".PHP_EOL;
-		$columncount=1;
-		}
+	$movieArray = array("Title" => $Title, "movieTitlePretty" => $movieTitlePretty,"Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
+	array_push($movieListDetails, $movieArray);
 }
-
-$sorter = new FieldSorter('Title'); 
    
+
 usort($movieListDetails, array($sorter, "cmp"));
 
 class FieldSorter {
@@ -154,9 +128,43 @@ class FieldSorter {
     }
 }
 
-echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
-print_r($movieListDetails);
-echo "</div>".PHP_EOL."<pre>".PHP_EOL;
+echo "<div class='section group'>";
+
+foreach ($movieListDetails as $movie){
+	$Title = $movie['Title'];
+	$movieTitlePretty = $movie['movieTitlePretty'];
+	$Director = $movie['Director'];
+	$Year = $movie['Year'];
+	$Poster = $movie['Poster'];
+	$Rating = $movie['Rating'];
+
+if ($columncount<$columns){
+	// if the current column is less than the number of columns specified, open a new column DIV and display the info
+	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
+	echo "<p>".$movieCount++."</p>".PHP_EOL;
+	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
+	echo "</div>".PHP_EOL;
+	$columncount++;
+	
+	}else{
+		// if the current column is equal to the maximum number of columns specified - display info, then close the group and start a new group
+		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
+		echo "<p>".$movieCount++."</p>".PHP_EOL;
+		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
+		echo "</div>".PHP_EOL;	
+		echo "</div>".PHP_EOL;
+		echo "<div class='section group'>".PHP_EOL;
+		$columncount=1;
+		}
+
+}   
+
+// 			display preformatted array of movie details for debugging   
+// echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
+// print_r($movieListDetails);
+// echo "</div>".PHP_EOL."<pre>".PHP_EOL;
 
 ?>
 </div>
