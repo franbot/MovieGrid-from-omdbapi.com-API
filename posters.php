@@ -83,8 +83,9 @@ if (file_exists($path.$posterFile)) {
 	$Director = $resultArray->{'Director'};
 	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
+	$Rating = $resultArray->{'imdbRating'};
 	
-	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director);
+	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
 	array_push($movieListDetails, $movieArray);
     
 }else {
@@ -94,10 +95,12 @@ if (file_exists($path.$posterFile)) {
 	$resultArray = (json_decode($resultText));
 	$Title = $resultArray->{'Title'};
 	$Director = $resultArray->{'Director'};
-	$Poster = $resultArray->{'Poster'};
 	$Year = $resultArray->{'Year'};
+	$Poster = $resultArray->{'Poster'};
+	$Rating = $resultArray->{'imdbRating'};
 	
-	$movieArray = array($Title,$Year,$Director);
+	
+	$movieArray = array("Title" => $Title, "Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
 	array_push($movieListDetails, $movieArray);
 		
 	if (empty($Poster)){
@@ -117,8 +120,7 @@ if ($columncount<$columns){
 	// if the current column is less than the number of columns specified, open a new column DIV and display the info
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	echo "<p>".$movieCount++."</p>".PHP_EOL;
-	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-	echo "<p><strong>".$movieTitlePretty."</strong></br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
+	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
 	
@@ -127,7 +129,7 @@ if ($columncount<$columns){
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		echo "<p>".$movieCount++."</p>".PHP_EOL;
 		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
+		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
 		echo "<div class='section group'>".PHP_EOL;
@@ -135,7 +137,31 @@ if ($columncount<$columns){
 		}
 }
 
-var_dump ($movieListDetails);
+uasort($movieListDetails, 'sort_by_year');
+
+function sort_by_year ($a, $b)
+{
+    return $a['Year'] - $b['Year'];
+}
+
+function sort_by_title ($a, $b)
+{
+    return $a['Title'] - $b['Title'];
+}
+
+function sort_by_director ($a, $b)
+{
+    return $a['Director'] - $b['Director'];
+}
+
+function sort_by_rating ($a, $b)
+{
+    return $a['Rating'] - $b['Rating'];
+}
+
+echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
+print_r($movieListDetails);
+echo "</div>".PHP_EOL."<pre>".PHP_EOL;
 
 ?>
 </div>
