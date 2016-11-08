@@ -27,8 +27,6 @@
 
 <body>
 
-<div class='section group'>
-
 <?php
 
 // setup some preferences
@@ -36,7 +34,19 @@ $apikey = file_get_contents("api.txt");  // you must request an API key from htt
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
 $path = "../posters/";  // path to folder of posters
-$sort = "file";  // sort order of movie list - random (rand), ascending (asc), descending (desc), order in file (file)
+$sort = "asc";  // default sort order - random (rand), ascending (asc), descending (desc)
+$sorter = new FieldSorter('Title'); // default value to sort by - Title, Year, Director, Rating
+$tempSort = $_GET["sort"];
+$tempSorter = $_GET["sorter"];
+
+if (isset($tempSort)){
+$sort = $tempSort;     // sort order passed in URL - random (rand), ascending (asc), descending (desc)
+}
+
+if (isset($tempSorter)){
+$sorter = new FieldSorter($tempSorter); // sort value passed in URL - Title, Year, Director, Rating
+}
+
 
 // setup some basic variables - don't change!
 $columncount=1;
@@ -44,21 +54,7 @@ $movieCount=1;
 $fileRaw = file_get_contents("movies.txt");  // read in list of movies from external file
 $file = str_replace(" ", "+", $fileRaw);
 $movielist = explode(PHP_EOL, $file);
-
-// sort movielist array
-switch ($sort) {   
-    case "rand":
-		shuffle($movielist);
-        break;
-    case "asc":
-        sort($movielist);
-        break;
-    case "desc":
-        rsort($movielist);
-        break;
-    default:
-        ;
-}
+$movieListDetails = array();
 
 foreach ($movielist as $movie) {
 // loop through list of movies from file and get some basic info
@@ -81,6 +77,7 @@ if (file_exists($path.$posterFile)) {
 	$Director = $resultArray->{'Director'};
 	$Year = $resultArray->{'Year'};
 	$Poster = $path.$posterFile;
+	$Rating = $resultArray->{'imdbRating'};
     
 }else {
 	// if no poster artwork is found in the directory, make an API call to try to find and download it.
@@ -89,11 +86,12 @@ if (file_exists($path.$posterFile)) {
 	$resultArray = (json_decode($resultText));
 	$Title = $resultArray->{'Title'};
 	$Director = $resultArray->{'Director'};
-	$Poster = $resultArray->{'Poster'};
 	$Year = $resultArray->{'Year'};
+	$Poster = $resultArray->{'Poster'};
+	$Rating = $resultArray->{'imdbRating'};
 		
 	if (empty($Poster)){
-		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later on line 113
+		// if the API call does not return a poster image change $movieTitlePretty to 'NO POSTER ARTWORK FOUND' it will get displayed later in the page rendering loop
 		$movieTitlePretty = "<h3><font color='red'>NO POSTER ARTWORK FOUND</font></br>".PHP_EOL.$movieTitlePretty."</h3>".PHP_EOL;		
 		
 		}else {
@@ -105,12 +103,60 @@ if (file_exists($path.$posterFile)) {
 			}			
 	}  
 	
+	$movieArray = array("Title" => $Title, "movieTitlePretty" => $movieTitlePretty,"Year" => $Year, "Director" => $Director, "Poster" => $Poster, "Rating" => $Rating);
+	array_push($movieListDetails, $movieArray);
+}
+   
+usort($movieListDetails, array($sorter, "cmp"));  // sort multidimensional array by sending to function below
+
+class FieldSorter {
+// sort multidimensional array by the specified key (Title, Year, Director, Rating) - variable $sorter set above.
+    public $field;
+
+    function __construct($field) {
+        $this->field = $field;
+    }
+
+    function cmp($a, $b) {
+        if ($a[$this->field] == $b[$this->field]) return 0;
+        return ($a[$this->field] > $b[$this->field]) ? 1 : -1;
+    }
+}
+
+// sort movielist array
+switch ($sort) {   
+    case "rand":
+		shuffle($movieListDetails);
+        break;
+    case "asc":
+        // no need to sort ascending because the array is already in that order
+        break;
+    case "desc":
+    	// reverse the order of elements in the array to arrange by descending order
+        $movieListDetails = array_reverse($movieListDetails,true);
+        break;
+    default:
+        ;
+}
+
+// here is where the actual page is rendered
+echo "<div class='section group'>";
+
+// loop through each sub array, get all the details, then reder each cell in the table
+foreach ($movieListDetails as $movie){
+	$Title = $movie['Title'];
+	$movieTitlePretty = $movie['movieTitlePretty'];
+	$Director = $movie['Director'];
+	$Year = $movie['Year'];
+	$Poster = $movie['Poster'];
+	$Rating = $movie['Rating'];
+
 if ($columncount<$columns){
 	// if the current column is less than the number of columns specified, open a new column DIV and display the info
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	echo "<p>".$movieCount++."</p>".PHP_EOL;
 	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-	echo "<p><strong>".$movieTitlePretty."</strong></br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
+	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
 	
@@ -119,13 +165,18 @@ if ($columncount<$columns){
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		echo "<p>".$movieCount++."</p>".PHP_EOL;
 		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</p>".PHP_EOL;
+		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
 		echo "<div class='section group'>".PHP_EOL;
 		$columncount=1;
 		}
-}
+}   
+
+// display preformatted array of movie details for debugging   
+// echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
+// print_r($movieListDetails);
+// echo "</div>".PHP_EOL."<pre>".PHP_EOL;
 
 ?>
 </div>
