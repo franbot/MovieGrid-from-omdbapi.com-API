@@ -28,7 +28,6 @@
 <body>
 
 <?php
-
 // setup some preferences
 $apikey = file_get_contents("api.txt");  // you must request an API key from http://omdbapi.com
 $columns ="10";   // how many columns in the grid (1 to 12)
@@ -50,6 +49,7 @@ $sorter = new FieldSorter($tempSorter); // sort value passed in URL - Title, Yea
 
 
 // setup some basic variables - don't change!
+$arrContextOptions=array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false,),);
 $columncount=1;
 $movieCount=1;
 $fileRaw = file_get_contents("movies.txt");  // read in list of movies from external file
@@ -97,7 +97,7 @@ if (file_exists($path.$posterFile)) {
 		
 		}else {
 			// if the API call finds poster artwork, download it to a file along with a text file to store some basic info
-			file_put_contents($path.$movieTitleFile.".jpg", file_get_contents($Poster));
+			file_put_contents($path.$movieTitleFile.".jpg", file_get_contents($Poster, false, stream_context_create($arrContextOptions)));
 			file_put_contents($path.$movieTitleFile.".txt", $resultText);
 			$movieTitlePretty = "<font color='green'>FILE DOWNLOADED</font></br>".PHP_EOL.$movieTitlePretty;		
 			$Poster = $path.$posterFile;
