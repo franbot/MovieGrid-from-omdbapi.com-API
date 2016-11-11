@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="../css/col.css" media="all">
+	<link rel="stylesheet" href="col.css" media="all">
 	<style type="text/css">
 	body { padding:2em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
 	.header { padding:1em 0; }
