@@ -33,7 +33,7 @@
 $apikey = file_get_contents("api.txt");  // you must request an API key from http://omdbapi.com
 $columns ="10";   // how many columns in the grid (1 to 12)
 $width = "100%";  // width of displayed images
-$path = "../posters/";  // path to folder of posters
+$path = "posters/";  // path to folder of posters
 $sort = "asc";  // default sort order - random (rand), ascending (asc), descending (desc)
 $sorter = new FieldSorter('Title'); // default value to sort by - Title, Year, Director, Rating
 $tempSort = $_GET["sort"];
