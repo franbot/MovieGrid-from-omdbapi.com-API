@@ -40,13 +40,14 @@ $tempSorter = $_GET["sorter"];
 
 if (isset($tempSort)){
 $sort = $tempSort;     // sort order passed in URL - random (rand), ascending (asc), descending (desc)
+echo "custom sorting <strong>".$sort;
 }
 
 if (isset($tempSorter)){
 $tempSorter = ucwords($tempSorter);
 $sorter = new FieldSorter($tempSorter); // sort value passed in URL - Title, Year, Director, Rating
+echo "</strong> by <strong>".$tempSorter."</strong>";
 }
-
 
 // setup some basic variables - don't change!
 $arrContextOptions=array("ssl"=>array("verify_peer"=>false,"verify_peer_name"=>false,),);
