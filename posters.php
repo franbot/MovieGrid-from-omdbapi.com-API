@@ -44,6 +44,7 @@ $sort = $tempSort;     // sort order passed in URL - random (rand), ascending (a
 }
 
 if (isset($tempSorter)){
+$tempSorter = ucwords($tempSorter);
 $sorter = new FieldSorter($tempSorter); // sort value passed in URL - Title, Year, Director, Rating
 }
 
@@ -139,7 +140,7 @@ switch ($sort) {
         ;
 }
 
-// here is where the actual page is rendered
+// bellow here is where the actual page is rendered
 echo "<div class='section group'>";
 
 // loop through each sub array, get all the details, then reder each cell in the table
@@ -154,7 +155,7 @@ foreach ($movieListDetails as $movie){
 if ($columncount<$columns){
 	// if the current column is less than the number of columns specified, open a new column DIV and display the info
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
-	echo "<p>".$movieCount++."</p>".PHP_EOL;
+	//echo "<p>".$movieCount++."</p>".PHP_EOL;
 	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
 	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
@@ -163,7 +164,7 @@ if ($columncount<$columns){
 	}else{
 		// if the current column is equal to the maximum number of columns specified - display info, then close the group and start a new group
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
-		echo "<p>".$movieCount++."</p>".PHP_EOL;
+		//echo "<p>".$movieCount++."</p>".PHP_EOL;
 		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
 		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
