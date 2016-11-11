@@ -8,3 +8,5 @@ This project will hopefully turn into a Wordpress plug-in at some point, but for
 For styling I am using the responsive grid CSS code found at http://www.responsivegridsystem.com.  I have merged each of the stylesheets into one big stylesheet.
 
 BTW - I am a total noob with PHP.  More than anything this is a project to cut my teeth on a real world project.  I'm what you might call a Google programmer - I google search snippets of code and put it in my program. 
+
+live working copy at http://webstage.franciscrossman.com/posters/posters.php
