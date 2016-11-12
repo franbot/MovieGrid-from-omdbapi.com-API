@@ -165,7 +165,8 @@ if ($columncount<$columns){
 	// if the current column is less than the number of columns specified, open a new column DIV and display the info
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	//echo "<p>".$movieCount++."</p>".PHP_EOL;
-	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+	echo '<a href="'.$Poster.'" data-lity>';
+	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></a></br>'.PHP_EOL;
 	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
@@ -174,7 +175,8 @@ if ($columncount<$columns){
 		// if the current column is equal to the maximum number of columns specified - display info, then close the group and start a new group
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		//echo "<p>".$movieCount++."</p>".PHP_EOL;
-		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+		echo '<a href="'.$Poster.'" data-lity>';
+		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></a></br>'.PHP_EOL;
 		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
