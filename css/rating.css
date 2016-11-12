@@ -7,7 +7,7 @@
     /*height of empty star*/
     height: 16px;
     /*background image with stars */
-    background: url(images/stars.png);
+    background: url(../images/stars.png);
     /*which will be repeated horizontally */
     background-repeat: repeat-x;
     /* as we are using sprite image, we need to position it to use right star, 
@@ -20,7 +20,7 @@
     /* height of full star is the same, we won't specify width here */
     height: 16px;
     /* background image with stars */
-    background: url(images/stars.png);
+    background: url(../images/stars.png);
     /* now we will position background image to use 16px from top, 
     //which means use full stars */
     background-position: 0 -16px;
