@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/col.css" media="all">	   <!-- source found at http://www.responsivegridsystem.com --!>	
+	<link rel="stylesheet" href="css/col.css" media="all">
 	<link rel="stylesheet" href="css/rating.css" media="all">  <!-- source found at https://codepen.io/anon/pen/gLrppL --!>
 	<style type="text/css">
 	body { padding:2em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
@@ -75,8 +75,14 @@ $dataFile = "$movieTitleFile.txt";
 if (file_exists($path.$posterFile)) {
 	// checking to see if the poster artwork and accompanying text file has been previously downloaded.
   	$url = $path.$dataFile;
-	getMovieDetails($url);
-
+	$resultText = file_get_contents($url);
+	$resultArray = (json_decode($resultText));
+	$Title = $resultArray->{'Title'};
+	$Director = $resultArray->{'Director'};
+	$Year = $resultArray->{'Year'};
+	$Poster = $path.$posterFile;
+	$Rating = $resultArray->{'imdbRating'};
+    
 }else {
 	// if no poster artwork is found in the directory, make an API call to try to find and download it.
    	$url = "http://omdbapi.com/?t=".$movieTitleSearch."&y=".$movieYear."&apikey=".$apikey;    	
@@ -172,17 +178,6 @@ if ($columncount<$columns){
 }   
 
 
-function getMovieDetails($url){
-	$resultText = file_get_contents($url);
-	$resultArray = (json_decode($resultText));
-	$GLOBALS['Title'] = $resultArray->{'Title'};
-	$GLOBALS['Director'] = $resultArray->{'Director'};
-	$GLOBALS['Year'] = $resultArray->{'Year'};
-	$GLOBALS['Poster'] = $path.$posterFile;
-	$GLOBALS['Rating'] = $resultArray->{'imdbRating'};
-	
-}
-
 function starRating($Rating) {
     echo "
 <!-- div element full of empty stars -->
@@ -192,6 +187,7 @@ which represents rating -->
 <div  class='rating' style='width:".($Rating * 10)."%;'>
 </div>
 </div>";
+
 }
 
 
