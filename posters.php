@@ -15,6 +15,7 @@
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="col.css" media="all">
+	<link rel="stylesheet" href="rating.css" media="all">  <!-- source found at https://codepen.io/anon/pen/gLrppL --!>
 	<style type="text/css">
 	body { padding:2em; font : 100% 'Helvetica Neue', arial, helvetica, helve, sans-serif;}
 	.header { padding:1em 0; }
@@ -26,6 +27,7 @@
 </head>
 
 <body>
+
 
 <?php
 // setup some preferences
@@ -158,7 +160,7 @@ if ($columncount<$columns){
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	//echo "<p>".$movieCount++."</p>".PHP_EOL;
 	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
+	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
 	
@@ -167,13 +169,27 @@ if ($columncount<$columns){
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		//echo "<p>".$movieCount++."</p>".PHP_EOL;
 		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
-		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director."</br>IMDB Rating = ".$Rating."</p>".PHP_EOL;
+		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
 		echo "<div class='section group'>".PHP_EOL;
 		$columncount=1;
 		}
 }   
+
+
+function starRating($Rating) {
+    echo "
+<!-- div element full of empty stars -->
+<div class='rating_bar'>
+<!-- div element that contains full stars with percentage width, 
+which represents rating -->
+<div  class='rating' style='width:".($Rating * 10)."%;'>
+</div>
+</div>";
+
+}
+
 
 // display preformatted array of movie details for debugging   
 // echo "<div class='section group'>".PHP_EOL."<pre>".PHP_EOL;
