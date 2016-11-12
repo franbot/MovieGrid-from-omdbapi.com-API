@@ -12,6 +12,11 @@
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Scripts for lightbox -->
+	<link href="lightbox/lity.css" rel="stylesheet">
+	<script src="lightbox/jquery.js"></script>
+	<script src="lightbox/lity.js"></script>
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="css/col.css" media="all">
@@ -28,6 +33,7 @@
 
 <body>
 
+<a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image</a>
 
 <?php
 // setup some preferences
