@@ -33,8 +33,6 @@
 
 <body>
 
-<a href="https://farm9.staticflickr.com/8642/16455005578_0fdfc6c3da_b.jpg" data-lity>Image</a>
-
 <?php
 // setup some preferences
 $apikey = file_get_contents("api.txt");  // you must request an API key from http://omdbapi.com
