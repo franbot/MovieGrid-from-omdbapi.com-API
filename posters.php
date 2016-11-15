@@ -12,6 +12,11 @@
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Scripts for lightbox -->
+	<link href="lightbox/lity.css" rel="stylesheet">
+	<script src="lightbox/jquery.js"></script>
+	<script src="lightbox/lity.js"></script>
 
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="css/col.css" media="all">
@@ -27,7 +32,6 @@
 </head>
 
 <body>
-
 
 <?php
 // setup some preferences
@@ -159,7 +163,8 @@ if ($columncount<$columns){
 	// if the current column is less than the number of columns specified, open a new column DIV and display the info
 	echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 	//echo "<p>".$movieCount++."</p>".PHP_EOL;
-	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+	echo '<a href="'.$Poster.'" data-lity>';
+	echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></a></br>'.PHP_EOL;
 	echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 	echo "</div>".PHP_EOL;
 	$columncount++;
@@ -168,7 +173,8 @@ if ($columncount<$columns){
 		// if the current column is equal to the maximum number of columns specified - display info, then close the group and start a new group
 		echo "<div class='col span_1_of_$columns'>".PHP_EOL;
 		//echo "<p>".$movieCount++."</p>".PHP_EOL;
-		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></br>'.PHP_EOL;
+		echo '<a href="'.$Poster.'" data-lity>';
+		echo '<img src="'.$Poster.'" alt="'.$Title.'" width="'.$width.'"></a></br>'.PHP_EOL;
 		echo "<p><strong>".$movieTitlePretty."</strong> - </br> - ".$Year." - </br>".$Director.starRating($Rating)."</p>".PHP_EOL;
 		echo "</div>".PHP_EOL;	
 		echo "</div>".PHP_EOL;
