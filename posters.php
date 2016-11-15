@@ -181,7 +181,7 @@ if ($columncount<$columns){
 		echo "<div class='section group'>".PHP_EOL;
 		$columncount=1;
 		}
-}   
+}    
 
 
 function starRating($Rating) {
@@ -205,6 +205,12 @@ which represents rating -->
 ?>
 </div>
 </div>
+<h1>Try adding your own movies to the list</h1>
+<form action="formdata.php">
+  <textarea name="data" rows="10" cols="30">Each movie on a new line</textarea>
+  <br>
+<input type="submit">
+</form>
 </body>
 </html>
 
