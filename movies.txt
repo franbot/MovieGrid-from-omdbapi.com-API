@@ -15,6 +15,7 @@ Big Trouble in Little China
 Blade Runner
 Blow-Up
 Close Encounters of the Third Kind
+Dark Crystal
 Das Boot
 Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
 E.T. the Extra-Terrestrial
@@ -102,3 +103,4 @@ Wayne's World
 Weird Science;1985
 What We Do in the Shadows
 Young Frankenstein
+Look who's talking
