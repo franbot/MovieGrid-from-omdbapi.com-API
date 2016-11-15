@@ -19,8 +19,11 @@ You can change the sorting by passing variables in the url.
 
 Examples:
 
-Sort ascending by tile:
-http://webstage.franciscrossman.com/posters/posters.php?sort=asc&sorter=title
+Sort ascending by title:
+- http://webstage.franciscrossman.com/posters/posters.php?sort=asc&sorter=title
 
 Sort descending by IMDB rating:
-http://webstage.franciscrossman.com/posters/posters.php?sort=desc&sorter=rating
+- http://webstage.franciscrossman.com/posters/posters.php?sort=desc&sorter=rating
+
+Sort random:
+- http://webstage.franciscrossman.com/posters/posters.php?sort=rand
