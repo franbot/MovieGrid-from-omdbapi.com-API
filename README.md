@@ -14,8 +14,8 @@ live working copy at http://webstage.franciscrossman.com/posters/posters.php
 Sorting:
 
 You can change the sorting by passing variables in the url.
-Available sort options: asc, desc, rand
-Available sorters: title, year, director, rating
+- Available sort options: asc, desc, rand
+- Available sorters: title, year, director, rating
 
 Examples:
 
