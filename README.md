@@ -10,3 +10,17 @@ For styling I am using the responsive grid CSS code found at http://www.responsi
 BTW - I am a total noob with PHP.  More than anything this is a project to cut my teeth on a real world project.  I'm what you might call a Google programmer - I google search snippets of code and put it in my program. 
 
 live working copy at http://webstage.franciscrossman.com/posters/posters.php
+
+Sorting:
+
+You can change the sorting by passing variables in the url.
+Available sort options: asc, desc, rand
+Available sorters: title, year, director, rating
+
+Examples:
+
+Sort ascending by tile:
+http://webstage.franciscrossman.com/posters/posters.php?sort=asc&sorter=title
+
+Sort descending by IMDB rating:
+http://webstage.franciscrossman.com/posters/posters.php?sort=desc&sorter=rating
